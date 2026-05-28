@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
+    font-size: 24px;
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  button, [role="button"] {
+    min-height: 64px;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  :focus-visible {
+    outline: 4px solid #FFD700;
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.bounce-in { animation: bounce-in 0.4s ease-out; }
+.wiggle { animation: wiggle 0.5s ease-in-out; }
+.float { animation: float 2s ease-in-out infinite; }
+.spin-slow { animation: spin-slow 3s linear infinite; }
