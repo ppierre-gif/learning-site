@@ -103,8 +103,7 @@ export async function saveProgress(profileId, progress) {
 
 // --- Settings ---
 
-export async function getSettings() {
-  const profileId = getProfileId()
+export async function getSettings(profileId) {
   if (!supabase || !profileId) return null
   const { data } = await supabase
     .from('settings')
@@ -112,21 +111,25 @@ export async function getSettings() {
     .eq('profile_id', profileId)
     .limit(1)
     .single()
-  return data
+  if (!data) return null
+  return {
+    fontSize: data.font_size,
+    volume: data.volume,
+    theme: data.theme,
+    sessionLimit: data.session_limit,
+  }
 }
 
-export async function saveSettings(settings) {
-  const profileId = getProfileId()
+export async function saveSettings(profileId, settings) {
   if (!supabase || !profileId) return
-  const { data: existing } = await supabase
-    .from('settings')
-    .select('id')
-    .eq('profile_id', profileId)
-    .limit(1)
-    .single()
-  if (existing) {
-    await supabase.from('settings').update(settings).eq('id', existing.id)
-  } else {
-    await supabase.from('settings').insert({ ...settings, profile_id: profileId })
-  }
+  await supabase.from('settings').upsert(
+    {
+      profile_id: profileId,
+      font_size: settings.fontSize,
+      volume: settings.volume,
+      theme: settings.theme,
+      session_limit: settings.sessionLimit,
+    },
+    { onConflict: 'profile_id' }
+  )
 }

@@ -37,16 +37,22 @@ export function SettingsProvider({ children, profileId }) {
   })
 
   useEffect(() => {
-    getSettings().then(remote => {
-      if (remote) setSettings(prev => ({ ...prev, ...remote }))
+    getSettings(profileId).then(remote => {
+      if (remote) {
+        setSettings(prev => {
+          const next = { ...prev, ...remote }
+          localStorage.setItem(storageKey, JSON.stringify(next))
+          return next
+        })
+      }
     })
-  }, [])
+  }, [profileId])
 
   const updateSettings = (updates) => {
     const next = { ...settings, ...updates }
     setSettings(next)
     localStorage.setItem(storageKey, JSON.stringify(next))
-    saveSettings(next)
+    saveSettings(profileId, next)
   }
 
   const theme = themes[settings.theme] || themes.rainbow

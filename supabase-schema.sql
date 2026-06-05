@@ -42,7 +42,7 @@ CREATE POLICY "Allow all" ON trophies FOR ALL USING (true) WITH CHECK (true);
 -- Settings (one row per profile)
 CREATE TABLE IF NOT EXISTS settings (
   id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  profile_id    UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  profile_id    UUID REFERENCES profiles(id) ON DELETE CASCADE UNIQUE,
   font_size     TEXT DEFAULT 'normal',
   volume        INTEGER DEFAULT 80,
   theme         TEXT DEFAULT 'rainbow',
