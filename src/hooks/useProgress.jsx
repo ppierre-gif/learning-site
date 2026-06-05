@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { logSession, earnTrophy } from '../lib/supabase'
+import { logSession, earnTrophy, loadProgress, saveProgress } from '../lib/supabase'
 
 // storageKey is set per provider instance via profileId prop
 
@@ -43,9 +43,28 @@ export function ProgressProvider({ children, profileId }) {
   })
   const [newTrophies, setNewTrophies] = useState([])
 
+  useEffect(() => {
+    loadProgress(profileId).then(remote => {
+      if (!remote) return
+      const fromRemote = {
+        ...defaultProgress,
+        stars: remote.stars ?? 0,
+        streak: remote.streak ?? 0,
+        bestStreak: remote.best_streak ?? 0,
+        trophies: remote.trophies ?? [],
+        moduleStars: remote.module_stars ?? {},
+        dailyStars: remote.daily_stars ?? {},
+        unlockedLevels: remote.unlocked_levels ?? {},
+      }
+      setProgress(fromRemote)
+      localStorage.setItem(storageKey, JSON.stringify(fromRemote))
+    })
+  }, [profileId])
+
   const save = (next) => {
     setProgress(next)
     localStorage.setItem(storageKey, JSON.stringify(next))
+    saveProgress(profileId, next)
   }
 
   const checkTrophies = (next) => {

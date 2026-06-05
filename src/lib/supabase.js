@@ -70,6 +70,37 @@ export async function earnTrophy(trophyName, trophyIcon) {
   })
 }
 
+// --- Progress ---
+
+export async function loadProgress(profileId) {
+  if (!supabase || !profileId) return null
+  const { data } = await supabase
+    .from('progress')
+    .select('*')
+    .eq('profile_id', profileId)
+    .limit(1)
+    .single()
+  return data
+}
+
+export async function saveProgress(profileId, progress) {
+  if (!supabase || !profileId) return
+  await supabase.from('progress').upsert(
+    {
+      profile_id: profileId,
+      stars: progress.stars,
+      streak: progress.streak,
+      best_streak: progress.bestStreak,
+      trophies: progress.trophies,
+      module_stars: progress.moduleStars,
+      daily_stars: progress.dailyStars,
+      unlocked_levels: progress.unlockedLevels,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: 'profile_id' }
+  )
+}
+
 // --- Settings ---
 
 export async function getSettings() {

@@ -64,6 +64,23 @@ CREATE TABLE IF NOT EXISTS wrong_answers (
 ALTER TABLE wrong_answers ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow all" ON wrong_answers FOR ALL USING (true) WITH CHECK (true);
 
+-- Progress (one row per profile, upserted on every change)
+CREATE TABLE IF NOT EXISTS progress (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  profile_id      UUID REFERENCES profiles(id) ON DELETE CASCADE UNIQUE,
+  stars           INTEGER DEFAULT 0,
+  streak          INTEGER DEFAULT 0,
+  best_streak     INTEGER DEFAULT 0,
+  trophies        JSONB DEFAULT '[]',
+  module_stars    JSONB DEFAULT '{}',
+  daily_stars     JSONB DEFAULT '{}',
+  unlocked_levels JSONB DEFAULT '{}',
+  updated_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE progress ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow all" ON progress FOR ALL USING (true) WITH CHECK (true);
+
 
 -- ============================================================
 -- Migration — run this if you already have the old schema
