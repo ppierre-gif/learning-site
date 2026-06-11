@@ -16,17 +16,18 @@ const SIGHT_WORDS = [
   'like', 'look', 'come', 'said', 'play', 'jump', 'help', 'this', 'that', 'with',
 ]
 
+// 5-letter words — he's mastered the 3-letter ones, so step up the challenge
 const SPELLING_WORDS = [
-  { word: 'CAT', emoji: '🐱', hint: 'a pet that meows' },
-  { word: 'DOG', emoji: '🐶', hint: 'a pet that barks' },
-  { word: 'SUN', emoji: '☀️', hint: 'it shines in the sky' },
-  { word: 'BUS', emoji: '🚌', hint: 'you ride this to school' },
-  { word: 'HAT', emoji: '🎩', hint: 'you wear this on your head' },
-  { word: 'PIG', emoji: '🐷', hint: 'this animal says oink' },
-  { word: 'HEN', emoji: '🐔', hint: 'this bird lays eggs' },
-  { word: 'BAT', emoji: '🏏', hint: 'used in cricket' },
-  { word: 'CUP', emoji: '☕', hint: 'you drink from this' },
-  { word: 'MAP', emoji: '🗺️', hint: 'shows you where to go' },
+  { word: 'HORSE', emoji: '🐴', hint: 'a big animal you can ride' },
+  { word: 'TRAIN', emoji: '🚂', hint: 'it runs on tracks' },
+  { word: 'APPLE', emoji: '🍎', hint: 'a red fruit you can eat' },
+  { word: 'HOUSE', emoji: '🏠', hint: 'you live in this' },
+  { word: 'TIGER', emoji: '🐯', hint: 'a big cat with stripes' },
+  { word: 'ZEBRA', emoji: '🦓', hint: 'a striped animal' },
+  { word: 'SNAKE', emoji: '🐍', hint: 'a long animal with no legs' },
+  { word: 'TRUCK', emoji: '🚚', hint: 'a big vehicle that carries things' },
+  { word: 'CLOCK', emoji: '⏰', hint: 'it tells you the time' },
+  { word: 'SHEEP', emoji: '🐑', hint: 'a woolly farm animal' },
 ]
 
 const TABS = ['Alphabet', 'Spell Words', 'Sight Words']
@@ -93,7 +94,7 @@ export default function Letters() {
   }
 
   const shuffledLetters = useMemo(() =>
-    [...letters, ...letters.slice(0, 3).map(l => String.fromCharCode(l.charCodeAt(0) + 1))]
+    [...letters, ...letters.slice(0, 4).map(l => String.fromCharCode(l.charCodeAt(0) + 1))]
       .sort(() => Math.random() - 0.5)
       .slice(0, 9),
     [spellIndex] // eslint-disable-line react-hooks/exhaustive-deps
