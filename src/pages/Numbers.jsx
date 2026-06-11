@@ -5,15 +5,24 @@ import { useAudio } from '../hooks/useAudio.jsx'
 import FeedbackBanner from '../components/FeedbackBanner'
 import { logWrongAnswer } from '../lib/supabase'
 
-const NUMBER_WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten',
-  'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty']
+// Number words 0–100, built so quizzes can go all the way to one hundred
+const ONES = ['zero','one','two','three','four','five','six','seven','eight','nine','ten',
+  'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen']
+const TENS = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']
+function numberToWord(n) {
+  if (n < 20) return ONES[n]
+  if (n === 100) return 'one hundred'
+  const t = Math.floor(n / 10), o = n % 10
+  return o === 0 ? TENS[t] : `${TENS[t]}-${ONES[o]}`
+}
+const NUMBER_WORDS = Array.from({ length: 101 }, (_, i) => numberToWord(i))
 
 const EMOJIS = ['🍎','🌟','🐶','🎈','🌸','🦋','🍦','🚀','🐱','🌈','🎉','🍕']
 
 const TABS = ['Counting', 'Addition', 'Number Quiz']
 
 function CountingGame({ level, onComplete }) {
-  const count = level === 1 ? 5 : level === 2 ? 10 : 15
+  const count = level === 1 ? 5 : level === 2 ? 10 : 20
   const [emoji] = useState(() => EMOJIS[Math.floor(Math.random() * EMOJIS.length)])
   const [tapped, setTapped] = useState([])
   const [feedback, setFeedback] = useState(null)
@@ -136,7 +145,7 @@ function AdditionGame({ level, onComplete }) {
 }
 
 function NumberQuiz({ level, onComplete }) {
-  const max = level === 1 ? 10 : level === 2 ? 15 : 20
+  const max = level === 1 ? 20 : level === 2 ? 50 : 100
   const [num] = useState(() => Math.floor(Math.random() * max) + 1)
   const [feedback, setFeedback] = useState(null)
   const [feedbackMsg, setFeedbackMsg] = useState('')
@@ -145,9 +154,9 @@ function NumberQuiz({ level, onComplete }) {
 
   const correct = NUMBER_WORDS[num]
   const options = [correct,
-    NUMBER_WORDS[Math.min(num + 1, 20)],
+    NUMBER_WORDS[Math.min(num + 1, 100)],
     NUMBER_WORDS[Math.max(num - 1, 0)],
-    NUMBER_WORDS[Math.min(num + 3, 20)],
+    NUMBER_WORDS[Math.min(num + 3, 100)],
   ].filter((v, i, a) => a.indexOf(v) === i).sort(() => Math.random() - 0.5).slice(0, 4)
 
   const handleAnswer = (opt) => {

@@ -8,7 +8,13 @@ import { logWrongAnswer } from '../lib/supabase'
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
-const SIGHT_WORDS = ['the', 'and', 'is', 'it', 'in', 'he', 'she', 'we', 'go', 'can', 'big', 'red', 'run', 'sit', 'put']
+const SIGHT_WORDS = [
+  // Mastered basics
+  'the', 'and', 'is', 'it', 'in', 'he', 'she', 'we', 'go', 'can', 'big', 'red', 'run', 'sit', 'put',
+  // Next common early-reader sight words
+  'at', 'on', 'up', 'my', 'me', 'see', 'you', 'are', 'for', 'was',
+  'like', 'look', 'come', 'said', 'play', 'jump', 'help', 'this', 'that', 'with',
+]
 
 const SPELLING_WORDS = [
   { word: 'CAT', emoji: '🐱', hint: 'a pet that meows' },
@@ -37,7 +43,8 @@ export default function Letters() {
   const { theme } = useSettings()
 
   const level = progress.unlockedLevels.letters || 1
-  const availableWords = SPELLING_WORDS.slice(0, level * 3 + 1)
+  // Start with 5 words at level 1, then 7, then 9 (capped at the full list)
+  const availableWords = SPELLING_WORDS.slice(0, Math.min(SPELLING_WORDS.length, level * 2 + 3))
 
   const showFeedback = (type, msg) => {
     setFeedback(type)

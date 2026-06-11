@@ -7,6 +7,29 @@ function createAudioContext() {
   return new (window.AudioContext || window.webkitAudioContext)()
 }
 
+// Short burst of filtered white noise — gives drums a crisp "snap" so they
+// don't sound muffled. Higher filterFreq = brighter/sharper.
+function playNoise(ctx, duration, volume, filterFreq = 2000, startTime = 0) {
+  if (!ctx) return
+  const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration))
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+  const data = buffer.getChannelData(0)
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1
+  const noise = ctx.createBufferSource()
+  noise.buffer = buffer
+  const filter = ctx.createBiquadFilter()
+  filter.type = 'highpass'
+  filter.frequency.value = filterFreq
+  const gain = ctx.createGain()
+  noise.connect(filter)
+  filter.connect(gain)
+  gain.connect(ctx.destination)
+  gain.gain.setValueAtTime(volume, ctx.currentTime + startTime)
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startTime + duration)
+  noise.start(ctx.currentTime + startTime)
+  noise.stop(ctx.currentTime + startTime + duration + 0.02)
+}
+
 function playTone(ctx, frequency, duration, type = 'sine', volume = 0.5, startTime = 0) {
   if (!ctx) return
   const oscillator = ctx.createOscillator()
@@ -46,16 +69,23 @@ const sounds = {
     melody.forEach((f, i) => playTone(ctx, f, 0.25, 'sine', vol, i * 0.18))
   },
   drum: (ctx, vol, freq = 80) => {
+    // Pitched body — triangle has more harmonics than sine, and a gentler
+    // pitch drop (down to 40%, not 10%) keeps it punchy instead of muffled.
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
     osc.connect(gain)
     gain.connect(ctx.destination)
+    osc.type = 'triangle'
     osc.frequency.setValueAtTime(freq, ctx.currentTime)
-    osc.frequency.exponentialRampToValueAtTime(freq * 0.1, ctx.currentTime + 0.3)
+    osc.frequency.exponentialRampToValueAtTime(Math.max(freq * 0.4, 30), ctx.currentTime + 0.18)
     gain.gain.setValueAtTime(vol, ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25)
     osc.start()
-    osc.stop(ctx.currentTime + 0.35)
+    osc.stop(ctx.currentTime + 0.3)
+    // Crisp attack snap. Brighter and longer for the higher pads
+    // (hi-hat, clap, cowbell) so they cut through instead of sounding dull.
+    const bright = freq >= 400
+    playNoise(ctx, bright ? 0.07 : 0.03, vol * (bright ? 0.5 : 0.35), Math.min(freq * 3, 8000))
   },
 }
 
