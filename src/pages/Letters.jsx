@@ -16,17 +16,27 @@ const SIGHT_WORDS = [
   'like', 'look', 'come', 'said', 'play', 'jump', 'help', 'this', 'that', 'with',
 ]
 
-// 5-letter words — he's mastered the 3-letter ones, so step up the challenge
+// 4- and 5-letter words mixed together — he's mastered the 3-letter ones
 const SPELLING_WORDS = [
+  { word: 'FISH', emoji: '🐟', hint: 'it swims in the water' },
   { word: 'HORSE', emoji: '🐴', hint: 'a big animal you can ride' },
+  { word: 'FROG', emoji: '🐸', hint: 'a green animal that hops' },
   { word: 'TRAIN', emoji: '🚂', hint: 'it runs on tracks' },
+  { word: 'BIRD', emoji: '🐦', hint: 'an animal that flies and sings' },
   { word: 'APPLE', emoji: '🍎', hint: 'a red fruit you can eat' },
+  { word: 'DUCK', emoji: '🦆', hint: 'a bird that says quack' },
   { word: 'HOUSE', emoji: '🏠', hint: 'you live in this' },
+  { word: 'BEAR', emoji: '🐻', hint: 'a big furry animal' },
   { word: 'TIGER', emoji: '🐯', hint: 'a big cat with stripes' },
+  { word: 'STAR', emoji: '⭐', hint: 'it twinkles in the night sky' },
   { word: 'ZEBRA', emoji: '🦓', hint: 'a striped animal' },
+  { word: 'LION', emoji: '🦁', hint: 'the king of the jungle' },
   { word: 'SNAKE', emoji: '🐍', hint: 'a long animal with no legs' },
+  { word: 'CAKE', emoji: '🍰', hint: 'a sweet treat for birthdays' },
   { word: 'TRUCK', emoji: '🚚', hint: 'a big vehicle that carries things' },
+  { word: 'TREE', emoji: '🌳', hint: 'it has leaves and branches' },
   { word: 'CLOCK', emoji: '⏰', hint: 'it tells you the time' },
+  { word: 'BOAT', emoji: '⛵', hint: 'it floats on the water' },
   { word: 'SHEEP', emoji: '🐑', hint: 'a woolly farm animal' },
 ]
 
