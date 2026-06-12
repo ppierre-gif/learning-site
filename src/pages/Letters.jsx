@@ -16,27 +16,30 @@ const SIGHT_WORDS = [
   'like', 'look', 'come', 'said', 'play', 'jump', 'help', 'this', 'that', 'with',
 ]
 
-// 4- and 5-letter words mixed together — he's mastered the 3-letter ones
+// Easier 4-letter words first; the 5-letter words only unlock at higher levels
+// once he has mastered the 4-letter ones (see availableWords below).
 const SPELLING_WORDS = [
+  // 4-letter words
   { word: 'FISH', emoji: '🐟', hint: 'it swims in the water' },
-  { word: 'HORSE', emoji: '🐴', hint: 'a big animal you can ride' },
   { word: 'FROG', emoji: '🐸', hint: 'a green animal that hops' },
-  { word: 'TRAIN', emoji: '🚂', hint: 'it runs on tracks' },
   { word: 'BIRD', emoji: '🐦', hint: 'an animal that flies and sings' },
-  { word: 'APPLE', emoji: '🍎', hint: 'a red fruit you can eat' },
   { word: 'DUCK', emoji: '🦆', hint: 'a bird that says quack' },
-  { word: 'HOUSE', emoji: '🏠', hint: 'you live in this' },
   { word: 'BEAR', emoji: '🐻', hint: 'a big furry animal' },
-  { word: 'TIGER', emoji: '🐯', hint: 'a big cat with stripes' },
   { word: 'STAR', emoji: '⭐', hint: 'it twinkles in the night sky' },
-  { word: 'ZEBRA', emoji: '🦓', hint: 'a striped animal' },
   { word: 'LION', emoji: '🦁', hint: 'the king of the jungle' },
-  { word: 'SNAKE', emoji: '🐍', hint: 'a long animal with no legs' },
   { word: 'CAKE', emoji: '🍰', hint: 'a sweet treat for birthdays' },
-  { word: 'TRUCK', emoji: '🚚', hint: 'a big vehicle that carries things' },
   { word: 'TREE', emoji: '🌳', hint: 'it has leaves and branches' },
-  { word: 'CLOCK', emoji: '⏰', hint: 'it tells you the time' },
   { word: 'BOAT', emoji: '⛵', hint: 'it floats on the water' },
+  // 5-letter words (unlock later)
+  { word: 'HORSE', emoji: '🐴', hint: 'a big animal you can ride' },
+  { word: 'TRAIN', emoji: '🚂', hint: 'it runs on tracks' },
+  { word: 'APPLE', emoji: '🍎', hint: 'a red fruit you can eat' },
+  { word: 'HOUSE', emoji: '🏠', hint: 'you live in this' },
+  { word: 'TIGER', emoji: '🐯', hint: 'a big cat with stripes' },
+  { word: 'ZEBRA', emoji: '🦓', hint: 'a striped animal' },
+  { word: 'SNAKE', emoji: '🐍', hint: 'a long animal with no legs' },
+  { word: 'TRUCK', emoji: '🚚', hint: 'a big vehicle that carries things' },
+  { word: 'CLOCK', emoji: '⏰', hint: 'it tells you the time' },
   { word: 'SHEEP', emoji: '🐑', hint: 'a woolly farm animal' },
 ]
 
@@ -54,8 +57,10 @@ export default function Letters() {
   const { theme } = useSettings()
 
   const level = progress.unlockedLevels.letters || 1
-  // Start with 5 words at level 1, then 7, then 9 (capped at the full list)
-  const availableWords = SPELLING_WORDS.slice(0, Math.min(SPELLING_WORDS.length, level * 2 + 3))
+  // Level 1: 5 of the 4-letter words. Level 2: all 10 four-letter words.
+  // Level 3 (mastered the short ones): the 5-letter words unlock too.
+  const wordCount = level === 1 ? 5 : level === 2 ? 10 : SPELLING_WORDS.length
+  const availableWords = SPELLING_WORDS.slice(0, wordCount)
 
   const showFeedback = (type, msg) => {
     setFeedback(type)
