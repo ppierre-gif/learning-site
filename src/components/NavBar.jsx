@@ -7,6 +7,7 @@ import StarCounter from './StarCounter'
 const navItems = [
   { to: '/',          label: 'Home',       icon: '🏠' },
   { to: '/letters',   label: 'Letters',    icon: '📚' },
+  { to: '/spelling',  label: 'Spelling',   icon: '✏️' },
   { to: '/numbers',   label: 'Numbers',    icon: '🔢' },
   { to: '/lifeskills',label: 'Life Skills',icon: '⏰' },
   { to: '/colors',    label: 'Colours',    icon: '🎨' },

@@ -7,6 +7,7 @@ import { useProfile } from '../hooks/useProfile.jsx'
 
 const modules = [
   { to: '/letters', label: 'Reading & Letters', icon: '📚', bg: '#F87171', bgHover: '#EF4444' },
+  { to: '/spelling', label: 'Spelling Words', icon: '✏️', bg: '#FBBF24', bgHover: '#F59E0B' },
   { to: '/numbers', label: 'Numbers & Maths', icon: '🔢', bg: '#60A5FA', bgHover: '#3B82F6' },
   { to: '/lifeskills', label: 'Life Skills', icon: '⏰', bg: '#4ADE80', bgHover: '#22C55E' },
   { to: '/colors', label: 'Colours & Shapes', icon: '🎨', bg: '#FB923C', bgHover: '#F97316' },
@@ -15,6 +16,7 @@ const modules = [
 
 const dailyChallenges = [
   { label: 'Spell a 3-letter word!', icon: '✏️', to: '/letters' },
+  { label: "This week's spelling words!", icon: '📝', to: '/spelling' },
   { label: 'Count to 10!', icon: '🔢', to: '/numbers' },
   { label: 'What time is it?', icon: '⏰', to: '/lifeskills' },
   { label: 'Name a shape!', icon: '🔷', to: '/colors' },

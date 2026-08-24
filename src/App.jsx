@@ -7,6 +7,7 @@ import SessionTimer from './components/SessionTimer'
 import ProfileSelect from './pages/ProfileSelect'
 import Home from './pages/Home'
 import Letters from './pages/Letters'
+import Spelling from './pages/Spelling'
 import Numbers from './pages/Numbers'
 import LifeSkills from './pages/LifeSkills'
 import ColorsShapes from './pages/ColorsShapes'
@@ -24,6 +25,7 @@ function MainApp({ profileId }) {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/letters" element={<Letters />} />
+              <Route path="/spelling" element={<Spelling />} />
               <Route path="/numbers" element={<Numbers />} />
               <Route path="/lifeskills" element={<LifeSkills />} />
               <Route path="/colors" element={<ColorsShapes />} />

@@ -9,6 +9,7 @@ const PIN = '1234'
 
 const MODULE_LABELS = {
   letters:    '📚 Letters',
+  spelling:   '✏️ Spelling',
   numbers:    '🔢 Numbers',
   lifeskills: '⏰ Life Skills',
   colors:     '🎨 Colours',

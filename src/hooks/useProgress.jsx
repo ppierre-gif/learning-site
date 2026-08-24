@@ -8,7 +8,7 @@ const defaultProgress = {
   streak: 0,
   bestStreak: 0,
   trophies: [],
-  moduleStars: { letters: 0, numbers: 0, lifeskills: 0, colors: 0, music: 0 },
+  moduleStars: { letters: 0, spelling: 0, numbers: 0, lifeskills: 0, colors: 0, music: 0 },
   dailyStars: {},
   unlockedLevels: { letters: 1, numbers: 1, lifeskills: 1, colors: 1 },
 }
@@ -22,6 +22,7 @@ const TROPHY_MILESTONES = [
   { id: 'streak_5', name: '5 in a Row!', icon: '🔥', condition: p => p.bestStreak >= 5 },
   { id: 'streak_10', name: 'On Fire!', icon: '🚀', condition: p => p.bestStreak >= 10 },
   { id: 'letter_master', name: 'Letter Master', icon: '📚', condition: p => (p.moduleStars.letters || 0) >= 15 },
+  { id: 'spelling_bee', name: 'Spelling Bee', icon: '✏️', condition: p => (p.moduleStars.spelling || 0) >= 15 },
   { id: 'math_whiz', name: 'Math Whiz', icon: '🔢', condition: p => (p.moduleStars.numbers || 0) >= 15 },
   { id: 'life_skills', name: 'Life Skills Pro', icon: '⏰', condition: p => (p.moduleStars.lifeskills || 0) >= 15 },
   { id: 'color_artist', name: 'Color Artist', icon: '🎨', condition: p => (p.moduleStars.colors || 0) >= 15 },

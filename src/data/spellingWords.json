@@ -1,0 +1,40 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "words": ["said", "ask", "stand", "catch", "eight", "afraid", "away", "always", "playing", "waved", "takes", "than", "great", "they", "prey"]
+    },
+    {
+      "week": 2,
+      "words": ["next", "left", "help", "please", "believe", "many", "very", "been", "seen", "she", "between", "three", "easy", "sea", "leave"]
+    },
+    {
+      "week": 3,
+      "words": ["pitch", "drink", "swim", "life", "while", "I", "my", "light", "buy", "eye", "which", "find", "why", "kind", "try"]
+    },
+    {
+      "week": 4,
+      "words": ["rocket", "pocket", "hold", "told", "often", "grow", "throne", "so", "sew", "most", "almost", "both", "coach", "open", "also"]
+    },
+    {
+      "week": 5,
+      "words": ["under", "such", "much", "young", "touch", "use", "your", "you", "unit", "cute", "few", "new", "fuel", "human", "music"]
+    },
+    {
+      "week": 6,
+      "words": ["save", "give", "have", "live", "move", "above", "alive", "alike", "to", "two", "too", "know", "do", "blew", "blue"]
+    },
+    {
+      "week": 7,
+      "words": ["missed", "willing", "balloon", "spelling", "pretty", "still", "off", "added", "letter", "different", "pattern", "middle", "Mississippi", "zipper", "carry"]
+    },
+    {
+      "week": 8,
+      "words": ["swimming", "swam", "getting", "coming", "came", "having", "doing", "ended", "happened", "happening", "started", "joked", "received", "smiled", "smiling"]
+    },
+    {
+      "week": 9,
+      "words": ["way", "these", "niece", "might", "show", "float", "brain", "mean", "close", "tried", "cube", "uniform", "stayed", "price", "usually"]
+    }
+  ]
+}
